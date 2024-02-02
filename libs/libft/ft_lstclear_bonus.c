@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 20:19:57 by doukim            #+#    #+#             */
-/*   Updated: 2023/03/16 18:35:21 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:14:17 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 
 	while (*lst)
 	{
-		if ((*lst)->content)
-			(*del)((*lst)->content);
+		if ((*lst)->data)
+			(*del)((*lst)->data);
 		tmp = *lst;
 		*lst = (*lst)->next;
 		free(tmp);

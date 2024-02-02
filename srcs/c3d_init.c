@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/29 22:42:02 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:23:43 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	c3d_init(t_cub3d *info)
 {
 	ft_memset(info, 0, sizeof(t_cub3d));
-	info->mlx = mlx_init();
-	info->win = mlx_new_window(info->mlx, 2000, 1200, "cub3D");
+	//info->mlx = mlx_init();
+	//info->win = mlx_new_window(info->mlx, 2000, 1200, "cub3D");
 	info->map_info = (t_map *)malloc(sizeof(t_map));
 	if (info->map_info == NULL)
 		c3d_err_exit(info, "cub3D: malloc failed");
