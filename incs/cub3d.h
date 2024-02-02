@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:17:44 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/30 17:38:34 by doukim           ###   ########.fr       */
+/*   Updated: 2024/02/03 00:02:00 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@
 # include "libft.h"
 # include "mlx.h"
 
+# define KEY_ESC 53
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define L_ARROW 123
+# define R_ARROW 124
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
+# define MAPWIDTH 24
+# define MAPHEIGHT 24
+# define WIDTH 640
+# define HEIGHT 480
+
 typedef struct s_rgb
 {
 	int	r;
@@ -36,19 +50,54 @@ typedef struct s_map
 	char	**map;
 }	t_map;
 
+typedef struct s_img
+{
+	void	*img;
+	int		*data;
+	int		img_width;
+	int		img_height;
+	int		bpp;
+	int		size_l;
+	int		endian;
+}	t_img;
+
+typedef struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rotate_speed;
+}	t_player;
+
+typedef struct s_press
+{
+	int	key_w;
+	int	key_a;
+	int	key_s;
+	int	key_d;
+	int	key_r;
+	int	key_l;
+}	t_press;
+
 typedef struct s_cub3d
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*filename;
-	char	*tex_no;
-	char	*tex_so;
-	char	*tex_ea;
-	char	*tex_we;
-	t_map	*map_info;
-	t_rgb	*col_floor;
-	t_rgb	*col_ceil;
+	void		*mlx;
+	void		*win;
+	t_img		*img;
+	char		*filename;
+	char		*tex_no;
+	char		*tex_so;
+	char		*tex_ea;
+	char		*tex_we;
+	t_map		*map_info;
+	t_rgb		*col_floor;
+	t_rgb		*col_ceil;
+	t_player	*player;
+	t_press		*press;
 }	t_cub3d;
 
 void	c3d_init(t_cub3d *info);
