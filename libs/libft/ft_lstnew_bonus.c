@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 20:06:31 by doukim            #+#    #+#             */
-/*   Updated: 2023/03/16 18:30:01 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:14:54 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_list	*ft_lstnew(void *content)
 	newlst = (t_list *)malloc(sizeof(t_list));
 	if (!newlst)
 		return (NULL);
-	newlst->content = content;
+	newlst->data = content;
 	newlst->next = NULL;
 	return (newlst);
 }

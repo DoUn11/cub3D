@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 20:27:37 by doukim            #+#    #+#             */
-/*   Updated: 2023/03/25 22:33:05 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:14:46 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	ret = NULL;
 	while (lst)
 	{
-		newcont = (*f)(lst -> content);
+		newcont = (*f)(lst -> data);
 		to_add = ft_lstnew(newcont);
 		if (!to_add)
 		{

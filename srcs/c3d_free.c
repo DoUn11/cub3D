@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   c3d_main.c                                         :+:      :+:    :+:   */
+/*   c3d_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 12:20:22 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/30 19:48:49 by doukim           ###   ########.fr       */
+/*   Created: 2024/01/30 16:26:20 by doukim            #+#    #+#             */
+/*   Updated: 2024/01/30 16:29:00 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char *argv[])
+void	c3d_free_list(t_list **list)
 {
-	t_cub3d	info;
+	t_list	*tmp;
+	t_list	*tmp2;
 
-	c3d_init(&info);
-	c3d_get_filename(&info, argc, argv);
-	c3d_get_map(&info);
-	c3d_mlx_loop();
+	tmp = *list;
+	while (tmp)
+	{
+		free(tmp->data);
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = tmp2;
+	}
+	*list = NULL;
+	return ;
 }

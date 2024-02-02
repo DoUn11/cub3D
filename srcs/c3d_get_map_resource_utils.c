@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   c3d_get_map_resource.c                             :+:      :+:    :+:   */
+/*   c3d_get_map_resource_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:01:26 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/29 22:02:03 by doukim           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:34:30 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,39 @@ void	**c3d_get_resource_type(t_cub3d *info, char *line)
 	while (*line == ' ' || (9 <= *line && *line <= 13))
 		line++;
 	if (!ft_strncmp(line, "NO ", 3))
-		return (&info->tex_no);
+		return ((void **)&info->tex_no);
 	if (!ft_strncmp(line, "SO ", 3))
-		return (&info->tex_so);
+		return ((void **)&info->tex_so);
 	if (!ft_strncmp(line, "WE ", 3))
-		return (&info->tex_we);
+		return ((void **)&info->tex_we);
 	if (!ft_strncmp(line, "EA ", 3))
-		return (&info->tex_ea);
+		return ((void **)&info->tex_ea);
 	if (!ft_strncmp(line, "F ", 2))
-		return (&info->col_floor);
+		return ((void **)&info->col_floor);
 	if (!ft_strncmp(line, "C ", 2))
-		return (&info->col_ceil);
+		return ((void **)&info->col_ceil);
 	return (NULL);
 }
 void	c3d_skip_one_word(char **line)
 {
-	while (*line && **line == ' ' || (9 <= **line && **line <= 13))
-		*line++;
+	while (*line && (**line == ' ' || (9 <= **line && **line <= 13)))
+		(*line)++;
 	while (*line && !(**line == ' ' || (9 <= **line && **line <= 13)))
-		*line++;
-	while (*line && **line == ' ' || (9 <= **line && **line <= 13))
-		*line++;
+		(*line)++;
+	while (*line && (**line == ' ' || (9 <= **line && **line <= 13)))
+		(*line)++;
 }
 
 int	c3d_get_splited_idx(t_cub3d *info, char **splited_rgb, int idx)
 {
-	int	ret;
+	int		ret;
+	char	*trimmed;
 	
 	if (splited_rgb[idx] == NULL)
 		c3d_err_exit(info, "cub3D: invalid resource format");
-	ret = ft_atoi(splited_rgb[idx]);
+	trimmed = ft_strtrim(splited_rgb[idx], " ");
+	ret = ft_atoi(trimmed);
+	free(trimmed);
 	free(splited_rgb[idx]);
 	return (ret);
 }
@@ -74,7 +77,6 @@ t_rgb	*c3d_get_rgb_resource(t_cub3d *info, char *line)
 char	*c3d_get_path_resource(t_cub3d *info, char *line)
 {
 	char	**splited_path;
-	int		idx;
 	char	*ret;
 
 	splited_path = ft_split(line, ' ');
@@ -93,7 +95,7 @@ char	*c3d_get_path_resource(t_cub3d *info, char *line)
 void	c3d_get_proper_resource(t_cub3d *info, void **resource_ptr, char *line)
 {
 	c3d_skip_one_word(&line);
-	if (resource_ptr == &info->col_ceil || resource_ptr == &info->col_floor)
+	if ((t_rgb **)resource_ptr == &info->col_ceil || (t_rgb **)resource_ptr == &info->col_floor)
 		*resource_ptr = c3d_get_rgb_resource(info, line);
 	else
 		*resource_ptr = c3d_get_path_resource(info, line);
