@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:17:44 by doukim            #+#    #+#             */
-/*   Updated: 2024/02/03 00:02:00 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:48:54 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,8 @@
 # define KEY_D 2
 # define L_ARROW 123
 # define R_ARROW 124
-# define TEXWIDTH 64
-# define TEXHEIGHT 64
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 1600
+# define HEIGHT 900
 
 typedef struct s_rgb
 {
@@ -53,9 +49,7 @@ typedef struct s_map
 typedef struct s_img
 {
 	void	*img;
-	int		*data;
-	int		img_width;
-	int		img_height;
+	char	*addr;
 	int		bpp;
 	int		size_l;
 	int		endian;
@@ -83,6 +77,31 @@ typedef struct s_press
 	int	key_l;
 }	t_press;
 
+typedef struct s_ray
+{
+	double	camera_x;
+	double	raydir_x;
+	double	raydir_y;
+	int		map_x;
+	int		map_y;
+	double	side_distx;
+	double	side_disty;
+	double	delta_distx;
+	double	delta_disty;
+	double	perpwalldist;
+	int		step_x;
+	int		step_y;
+	int		side;
+	int		hit;
+}	t_ray;
+
+typedef struct s_texture
+{
+	t_img	tex[4];
+	int		height;
+	int		width;
+}	t_texture;
+
 typedef struct s_cub3d
 {
 	void		*mlx;
@@ -98,6 +117,10 @@ typedef struct s_cub3d
 	t_rgb		*col_ceil;
 	t_player	*player;
 	t_press		*press;
+	t_ray		*ray;
+	int			ceiling_color;
+	int			floor_color;
+	t_texture	*texture;
 }	t_cub3d;
 
 void	c3d_init(t_cub3d *info);
@@ -118,6 +141,21 @@ void	c3d_get_map_info(t_cub3d *info, t_list *maplist);
 void	c3d_cvt_dblptrmap(t_cub3d *info, t_list *maplist);
 
 void	c3d_free_list(t_list **list);
+
+void	c3d_move_player(t_cub3d *cub3d);
+void	c3d_rotate_player(t_cub3d *cub3d);
+
+int		c3d_key_press(int keycode, t_cub3d *cub3d);
+int		c3d_key_release(int keycode, t_cub3d *cub3d);
+int		c3d_key_hook(t_cub3d *cub3d);
+int		main_loop(t_cub3d *cub3d);
+
+void	c3d_mlx_init(t_cub3d *cub3d);
+void	c3d_load_texture(t_cub3d *cub3d);
+void	c3d_draw_cf(t_cub3d *cub3d);
+
+void	c3d_cf_color(t_cub3d *cub3d);
+void	c3d_event_exe(t_cub3d *cub3d);
 
 
 #endif
