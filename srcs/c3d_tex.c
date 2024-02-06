@@ -6,40 +6,57 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:10:53 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/05 19:00:19 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:51:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	c3d_load_texture(t_cub3d *cub3d)
+void	c3d_init_load_img(t_cub3d *cub3d, int **texture, int i)
 {
-	cub3d->texture->tex[0].img = mlx_xpm_file_to_image(cub3d->mlx, \
-	cub3d->tex_ea, &cub3d->texture->width, &cub3d->texture->height);
-	cub3d->texture->tex[0].addr = mlx_get_data_addr(cub3d->texture->tex[0].img, \
-	&cub3d->texture->tex[0].bpp, &cub3d->texture->tex[0].size_l, \
-	&cub3d->texture->tex[0].endian);
-	cub3d->texture->tex[1].img = mlx_xpm_file_to_image(cub3d->mlx, \
-	cub3d->tex_we, &cub3d->texture->width, &cub3d->texture->height);
-	cub3d->texture->tex[1].addr = mlx_get_data_addr(cub3d->texture->tex[1].img, \
-	&cub3d->texture->tex[1].bpp, &cub3d->texture->tex[1].size_l, \
-	&cub3d->texture->tex[1].endian);
-	cub3d->texture->tex[2].img = mlx_xpm_file_to_image(cub3d->mlx, \
-	cub3d->tex_so, &cub3d->texture->width, &cub3d->texture->height);
-	cub3d->texture->tex[2].addr = mlx_get_data_addr(cub3d->texture->tex[2].img, \
-	&cub3d->texture->tex[2].bpp, &cub3d->texture->tex[2].size_l, \
-	&cub3d->texture->tex[2].endian);
-	cub3d->texture->tex[3].img = mlx_xpm_file_to_image(cub3d->mlx, \
-	cub3d->tex_no, &cub3d->texture->width, &cub3d->texture->height);
-	cub3d->texture->tex[3].addr = mlx_get_data_addr(cub3d->texture->tex[3].img, \
-	&cub3d->texture->tex[3].bpp, &cub3d->texture->tex[3].size_l, \
-	&cub3d->texture->tex[3].endian);
+	int	j;
+
+	j = 0;
+	while (j < cub3d->img->img_width * cub3d->img->img_height)
+	{
+		texture[i][j] = 0;
+		j++;
+	}
 }
 
-void	c3d_unload_texture(t_cub3d *cub3d)
+void	c3d_load_img(t_cub3d *cub3d, int **texture, char *path, int i)
 {
-	mlx_destroy_image(cub3d->mlx, cub3d->texture->tex[0].img);
-	mlx_destroy_image(cub3d->mlx, cub3d->texture->tex[1].img);
-	mlx_destroy_image(cub3d->mlx, cub3d->texture->tex[2].img);
-	mlx_destroy_image(cub3d->mlx, cub3d->texture->tex[3].img);
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	cub3d->img->img = mlx_xpm_file_to_image(cub3d->mlx, path, \
+	&cub3d->img->img_width, &cub3d->img->img_height);
+	texture[i] = malloc(sizeof(int) * \
+	(cub3d->img->img_width * cub3d->img->img_height));
+	if (!texture[i])
+		c3d_err_exit(cub3d, "cub3D: mlx_init failed\n");
+	c3d_init_load_img(cub3d, texture, i);
+	cub3d->img->addr = mlx_get_data_addr(cub3d->img->img, \
+	&cub3d->img->bpp, &cub3d->img->size_l, &cub3d->img->endian);
+	while (y < cub3d->img->img_height)
+	{
+		while (x < cub3d->img->img_width)
+		{
+			texture[i][cub3d->img->img_width * y + x] = \
+			cub3d->img->addr[cub3d->img->img_width * y + x];
+			x++;
+		}
+		y++;
+	}
+	mlx_destroy_image(cub3d->mlx, cub3d->img->img);
+}
+
+void	c3d_load_texture(t_cub3d *cub3d)
+{
+	c3d_load_img(cub3d, cub3d->texture, cub3d->tex_ea, 0);
+	c3d_load_img(cub3d, cub3d->texture, cub3d->tex_we, 1);
+	c3d_load_img(cub3d, cub3d->texture, cub3d->tex_so, 2);
+	c3d_load_img(cub3d, cub3d->texture, cub3d->tex_no, 3);
 }

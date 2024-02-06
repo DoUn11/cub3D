@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c3d_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:31:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/30 17:23:43 by doukim           ###   ########.fr       */
+/*   Updated: 2024/02/06 19:42:58 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,30 @@ void	c3d_init(t_cub3d *info)
 	if (info->map_info == NULL)
 		c3d_err_exit(info, "cub3D: malloc failed");
 	ft_memset(info->map_info, 0, sizeof(t_map));
+}
+
+void	c3d_memeset_struct(t_cub3d *cub3d)
+{
+	ft_memset(cub3d->img, 0, sizeof(t_img));
+	ft_memset(cub3d->press, 0, sizeof(t_press));
+	ft_memset(cub3d->player, 0, sizeof(t_player));
+	ft_memset(cub3d->ray, 0, sizeof(t_ray));
+}
+
+void	c3d_init_buf(t_cub3d *cub3d)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < HEIGHT)
+	{
+		while (j < WIDTH)
+		{
+			cub3d->buf[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
 }

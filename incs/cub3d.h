@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:17:44 by doukim            #+#    #+#             */
-/*   Updated: 2024/02/05 18:48:54 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/06 20:14:22 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct s_img
 	int		bpp;
 	int		size_l;
 	int		endian;
+	int		img_width;
+	int		img_height;
 }	t_img;
 
 typedef struct s_player
@@ -95,12 +97,15 @@ typedef struct s_ray
 	int		hit;
 }	t_ray;
 
-typedef struct s_texture
+typedef struct s_wall
 {
-	t_img	tex[4];
-	int		height;
-	int		width;
-}	t_texture;
+	int		wall_height;
+	int		wall_start;
+	int		wall_end;
+	int		tex_num;
+	double	wall_x;
+	int		x_coor;
+}	t_wall;
 
 typedef struct s_cub3d
 {
@@ -120,7 +125,9 @@ typedef struct s_cub3d
 	t_ray		*ray;
 	int			ceiling_color;
 	int			floor_color;
-	t_texture	*texture;
+	int			*texture[4];
+	int			buf[HEIGHT][WIDTH];
+	int			re_buf;
 }	t_cub3d;
 
 void	c3d_init(t_cub3d *info);
@@ -150,12 +157,20 @@ int		c3d_key_release(int keycode, t_cub3d *cub3d);
 int		c3d_key_hook(t_cub3d *cub3d);
 int		main_loop(t_cub3d *cub3d);
 
+void	c3d_clear_img(t_cub3d *cub3d);
 void	c3d_mlx_init(t_cub3d *cub3d);
+void	c3d_init_buf(t_cub3d *cub3d);
+void	c3d_memeset_struct(t_cub3d *cub3d);
 void	c3d_load_texture(t_cub3d *cub3d);
 void	c3d_draw_cf(t_cub3d *cub3d);
-
+void	c3d_pixel_put(t_cub3d *cub3d, int x, int y, int color);
 void	c3d_cf_color(t_cub3d *cub3d);
 void	c3d_event_exe(t_cub3d *cub3d);
 
+void	c3d_ray_init(t_cub3d *cub3d, int x);
+void	c3d_dda(t_cub3d *cub3d);
+
+void	c3d_cal_wall(t_cub3d *cub3d);
+void	c3d_draw_wall(t_cub3d *cub3d, int x);
 
 #endif

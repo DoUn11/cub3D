@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:30:14 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/05 20:30:35 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/06 16:26:06 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,6 @@ void	c3d_clear_img(t_cub3d *cub3d)
 	cub3d->img->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	cub3d->img->addr = mlx_get_data_addr(cub3d->img->img, \
 		&cub3d->img->bpp, &cub3d->img->size_l, &cub3d->img->endian);
-}
-
-int	main_loop(t_cub3d *cub3d)
-{
-	c3d_clear_img(cub3d);
-	c3d_draw_cf(cub3d);
-	// c3d_raycaseting();
-	// c3d_draw_img();
-	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->img->img, 0, 0);
-	c3d_key_hook(cub3d);
-	return (0);
 }
 
 int	c3d_key_hook(t_cub3d *cub3d)
