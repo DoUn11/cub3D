@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 17:12:46 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/06 20:03:39 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:44:56 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	c3d_ray_init(t_cub3d *cub3d, int x)
 	else
 		cub3d->ray->delta_disty = fabs(1 / cub3d->ray->raydir_y);
 	c3d_step_init(cub3d);
+	cub3d->ray->hit = 0;
 }
 
 void	c3d_dda(t_cub3d *cub3d)
 {
-	cub3d->ray->hit = 0;
 	while (cub3d->ray->hit == 0)
 	{
 		if (cub3d->ray->side_distx < cub3d->ray->side_disty)
@@ -70,16 +70,28 @@ void	c3d_dda(t_cub3d *cub3d)
 			cub3d->ray->side_distx += cub3d->ray->delta_distx;
 			cub3d->ray->map_x += cub3d->ray->step_x;
 			cub3d->ray->side = 0; //수직면에 닿았을때
+			if (cub3d->ray->raydir_x < 0)
+				cub3d->tex.num = 0; //서쪽
+			else
+				cub3d->tex.num = 1; //동쪽
 		}
 		else
 		{
 			cub3d->ray->side_disty += cub3d->ray->delta_disty;
 			cub3d->ray->map_y += cub3d->ray->step_y;
 			cub3d->ray->side = 1; //수평면에 닿았을때
+			if (cub3d->ray->raydir_y < 0)
+				cub3d->tex.num = 2; // 남쪽 
+			else
+				cub3d->tex.num = 3; //북쪽
 		}
-		if (cub3d->map_info->map[cub3d->ray->map_x][cub3d->ray->map_y] == '1')
+		if (cub3d->map_info->map[cub3d->ray->map_y][cub3d->ray->map_x] == '1')
 			cub3d->ray->hit = 1;
 	}
+}
+
+void	c3d_perpwalldist(t_cub3d *cub3d)
+{
 	if (cub3d->ray->side == 0)
 		cub3d->ray->perpwalldist = cub3d->ray->side_distx - \
 		cub3d->ray->delta_distx;

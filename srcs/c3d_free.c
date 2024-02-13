@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c3d_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:26:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/30 16:29:00 by doukim           ###   ########.fr       */
+/*   Updated: 2024/02/13 19:25:37 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,20 @@ void	c3d_free_list(t_list **list)
 	}
 	*list = NULL;
 	return ;
+}
+
+void	c3d_free_end(t_cub3d *info)
+{
+	//free 할거 추가좀
+
+	c3d_unload_texture(info);
+	if (info->img->img)
+		mlx_destroy_image(info->mlx, info->img->img);
+	mlx_destroy_window(info->mlx, info->win);
+	free(info->mlx);
+	free(info->img);
+	free(info->press);
+	free(info->player);
+	free(info->ray);
+	exit(0);
 }

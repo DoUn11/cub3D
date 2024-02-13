@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:30:14 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/06 16:26:06 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:14:23 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,7 @@ int	c3d_key_press(int keycode, t_cub3d *cub3d)
 	if (keycode == R_ARROW)
 		cub3d->press->key_r = 1;
 	if (keycode == KEY_ESC)
-	{
-		mlx_destroy_image(cub3d->mlx, cub3d->img);
-		mlx_destroy_window(cub3d->mlx, cub3d->win);
-		exit(0);
-	}
+		c3d_free_end(cub3d);
 	return (0);
 }
 

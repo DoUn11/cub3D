@@ -6,13 +6,13 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 17:10:50 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/02 19:34:02 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/13 20:14:29 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	c3d_rotate_right(t_cub3d *cub3d)
+void	c3d_rotate_left(t_cub3d *cub3d)
 {
 	double		temp_dirx;
 	double		temp_planex;
@@ -31,7 +31,7 @@ void	c3d_rotate_right(t_cub3d *cub3d)
 	- temp_planex * sin(player->rotate_speed);
 }
 
-void	c3d_rotate_left(t_cub3d *cub3d)
+void	c3d_rotate_right(t_cub3d *cub3d)
 {
 	double		temp_dirx;
 	double		temp_planex;

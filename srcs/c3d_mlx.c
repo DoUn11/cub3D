@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:30:45 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/06 20:33:08 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:30:31 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,23 @@ void	c3d_mlx_init(t_cub3d *cub3d)
 	if (!cub3d->ray)
 		c3d_err_exit(cub3d, "cub3D: malloc failed\n");
 	c3d_memeset_struct(cub3d);
-	c3d_init_buf(cub3d);
 	cub3d->img->img = NULL;
 }
 
 int	c3d_close_win(t_cub3d *cub3d)
 {
-	mlx_destroy_image(cub3d->mlx, cub3d->img->img);
-	mlx_destroy_window(cub3d->mlx, cub3d->win);
-	exit(0);
+	c3d_free_end(cub3d);
+	return (0);
 }
 
 void	c3d_player_set(t_cub3d *cub3d)
 {
-	// cub3d->player->pos_x = 
-	// cub3d->player->pos_y = 
+	//플레이어 정보 파싱 나중에 x, y파싱 좀 
+	// cub3d->player->pos_x = cub3d->map->player_x + 0.5;
+	// cub3d->player->pos_y = cub3d->map->player_y + 0.5;
+
+	cub3d->player->pos_x = 12;
+	cub3d->player->pos_y = 5;
 	cub3d->player->pos_x = 5.0;
 	cub3d->player->pos_y = 5.5;
 
@@ -55,8 +57,17 @@ void	c3d_player_set(t_cub3d *cub3d)
 	cub3d->player->dir_y = -1.0;
 	cub3d->player->plane_x = 0.66;
 	cub3d->player->plane_y = 0.0;
-	// if (N w a s)
-		// c3d_rotate_right() or c3d_rotate_left
+	/*map에 동서남북 정보 만들어 줘 
+	if (cub3d->map->compass == 'E')
+		cub3d->player->rotate_speed = 1.570795;
+	else if (cub3d->map->compass == 'S')
+		cub3d->player->rotate_speed = 1.570795 * 2;
+	else if (cub3d->map->compass == 'W')
+		cub3d->player->rotate_speed = 1.570795 * 3;
+	else if (cub3d->map->compass == 'N')
+		cub3d->player->rotate_speed = 1.570795 * 4;
+	c3d_rotate_right(cub3d);
+	*/
 	cub3d->player->move_speed = 0.05;
 	cub3d->player->rotate_speed = 0.05;
 }
@@ -68,14 +79,13 @@ int	main_loop(t_cub3d *cub3d)
 	x = 0;
 	c3d_clear_img(cub3d);
 	c3d_draw_cf(cub3d);
-	if (cub3d->re_buf == 1)
-		c3d_init_buf(cub3d);
 	while (x < WIDTH)
 	{
 		c3d_ray_init(cub3d, x);
 		c3d_dda(cub3d);
+		c3d_perpwalldist(cub3d);
 		c3d_cal_wall(cub3d);
-		// c3d_draw_wall(cub3d, x);
+		c3d_draw_wall(cub3d, x);
 		x++;
 	}
 	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->img->img, 0, 0);
@@ -87,12 +97,10 @@ void	c3d_event_exe(t_cub3d *cub3d)
 {
 	c3d_load_texture(cub3d);
 	c3d_cf_color(cub3d);
-	// c3d_player_set(cub3d);
+	c3d_player_set(cub3d);
 	mlx_hook(cub3d->win, 17, 0L, &c3d_close_win, cub3d);
 	mlx_hook(cub3d->win, 2, 0L, &c3d_key_press, cub3d);
 	mlx_hook(cub3d->win, 3, 0L, &c3d_key_release, cub3d);
 	mlx_loop_hook(cub3d->mlx, &main_loop, cub3d);
 	mlx_loop(cub3d->mlx);
 }
-
-

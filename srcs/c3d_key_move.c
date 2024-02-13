@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:42:52 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/05 20:30:33 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:54:52 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	c3d_move_forward(t_cub3d *cub3d)
 
 	world_map = cub3d->map_info->map;
 	player = cub3d->player;
-	if (world_map[(int)(player->pos_x + player->dir_x * \
-	player->move_speed)][(int)(player->pos_y)] == '0')
+	if (world_map[(int)(player->pos_y)][(int)(player->pos_x + player->dir_x * \
+	player->move_speed)] == '0')
 		player->pos_x += player->dir_x * player->move_speed;
-	if (world_map[(int)(player->pos_x)][(int)(player->pos_y + \
-	player->dir_y * player->move_speed)] == '0')
+	if (world_map[(int)(player->pos_y + \
+	player->dir_y * player->move_speed)][(int)(player->pos_x)] == '0')
 		player->pos_y += player->dir_y * player->move_speed;
 }
 
@@ -34,11 +34,11 @@ void	c3d_move_back(t_cub3d *cub3d)
 
 	world_map = cub3d->map_info->map;
 	player = cub3d->player;
-	if (world_map[(int)(player->pos_x - player->dir_x * \
-	player->move_speed)][(int)(player->pos_y)] == '0')
+	if (world_map[(int)(player->pos_y)][(int)(player->pos_x - player->dir_x * \
+	player->move_speed)] == '0')
 		player->pos_x -= player->dir_x * player->move_speed;
-	if (world_map[(int)(player->pos_x)][(int)(player->pos_y - \
-	player->dir_y * player->move_speed)] == '0')
+	if (world_map[(int)(player->pos_y - \
+	player->dir_y * player->move_speed)][(int)(player->pos_x)] == '0')
 		player->pos_y -= player->dir_y * player->move_speed;
 }
 
@@ -49,12 +49,12 @@ void	c3d_move_left(t_cub3d *cub3d)
 
 	world_map = cub3d->map_info->map;
 	player = cub3d->player;
-	if (world_map[(int)(player->pos_x - player->dir_x * \
-	player->move_speed)][(int)(player->pos_y)] == '0')
-		player->pos_x -= player->dir_x * player->move_speed;
-	if (world_map[(int)(player->pos_x)][(int)(player->pos_y + \
-	player->dir_y * player->move_speed)] == '0')
-		player->pos_y += player->dir_y * player->move_speed;
+	if (world_map[(int)(player->pos_y)][(int)(player->pos_x + player->dir_y * \
+	player->move_speed)] == '0')
+		player->pos_x += player->dir_y * player->move_speed;
+	if (world_map[(int)(player->pos_y - \
+	player->dir_x * player->move_speed)][(int)(player->pos_x)] == '0')
+		player->pos_y -= player->dir_x * player->move_speed;
 }
 
 void	c3d_move_right(t_cub3d *cub3d)
@@ -64,12 +64,12 @@ void	c3d_move_right(t_cub3d *cub3d)
 
 	world_map = cub3d->map_info->map;
 	player = cub3d->player;
-	if (world_map[(int)(player->pos_x + player->dir_x * \
-	player->move_speed)][(int)(player->pos_y)] == '0')
-		player->pos_x += player->dir_x * player->move_speed;
-	if (world_map[(int)(player->pos_x)][(int)(player->pos_y - \
-	player->dir_y * player->move_speed)] == '0')
-		player->pos_y -= player->dir_y * player->move_speed;
+	if (world_map[(int)(player->pos_y)][(int)(player->pos_x - player->dir_y * \
+	player->move_speed)] == '0')
+		player->pos_x -= player->dir_y * player->move_speed;
+	if (world_map[(int)(player->pos_y + \
+	player->dir_x * player->move_speed)][(int)(player->pos_x)] == '0')
+		player->pos_y += player->dir_x * player->move_speed;
 }
 
 void	c3d_move_player(t_cub3d *cub3d)
