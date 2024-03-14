@@ -6,7 +6,7 @@
 /*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:34:05 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/30 19:28:36 by doukim           ###   ########.fr       */
+/*   Updated: 2024/03/15 01:17:23 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	c3d_chk_row_valid(t_cub3d *info, char **map)
 		{
 			if (inside == 0 && map[x][y] == '1')
 				inside = 1;
-			if (inside == 0 && !(map[x][y] == ' ' || map[x][y] == '1'))
+			if (inside == 0 && (map[x][y] != ' ' && map[x][y] != '1'))
 				c3d_err_exit(info, "cub3D: invalid map format");
 			if (inside == 1 && map[x][y] == '1' && (y + 1 == info->map_info->width || map[x][y + 1] == ' '))
 				inside = 0;
@@ -88,7 +88,7 @@ void	c3d_chk_col_valid(t_cub3d *info, char **map)
 		{
 			if (inside == 0 && map[y][x] == '1')
 				inside = 1;
-			if (inside == 0 && !(map[y][x] == ' ' || map[y][x] == '1'))
+			if (inside == 0 && (map[y][x] != ' ' && map[y][x] != '1'))
 				c3d_err_exit(info, "cub3D: invalid map format");
 			if (inside == 1 && map[y][x] == '1' && (y + 1 == info->map_info->height || map[y + 1][x] == ' '))
 				inside = 0;
@@ -99,12 +99,39 @@ void	c3d_chk_col_valid(t_cub3d *info, char **map)
 			c3d_err_exit(info, "cub3D: invalid map format");
 	}
 }
+void	c3d_chk_field_valid(t_cub3d *info, char **map)
+{
+	int		x;
+	int		y;
+
+	info->start_dir = 0;
+	x = -1;
+	while (++x < info->map_info->height)
+	{
+		y = -1;
+		while (++y < info->map_info->width)
+		{
+			if (map[x][y] == 'N' || map[x][y] == 'E' || map[x][y] == 'W' || map[x][y] == 'S')
+			{
+				if (info->start_dir != 0)
+					c3d_err_exit(info, "cub3D: invalid map format");
+				info->start_dir = map[x][y];
+				info->start_locx = y;
+				info->start_locy = x;
+			}
+			if (ft_strchr("01 NSWE", map[x][y]) == NULL)
+				c3d_err_exit(info, "cub3D: invalid map format");
+		}
+	}
+}
 void	c3d_chk_map_valid(t_cub3d *info)
 {
 	c3d_chk_row_valid(info, info->map_info->map);
 	printf("row is valid\n");
 	c3d_chk_col_valid(info, info->map_info->map);
 	printf("col is valid\n");
+	c3d_chk_field_valid(info, info->map_info->map);
+	printf("field is valid\n");
 }
 void	c3d_get_map(t_cub3d *info)
 {

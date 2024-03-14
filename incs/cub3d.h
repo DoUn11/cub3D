@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:17:44 by doukim            #+#    #+#             */
-/*   Updated: 2024/02/13 19:26:12 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:10:03 by doukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,9 @@ typedef struct s_cub3d
 	t_texture	tex;
 	int			ceiling_color;
 	int			floor_color;
+	int			start_locx;
+	int			start_locy;
+	char		start_dir;
 }	t_cub3d;
 
 void	c3d_init(t_cub3d *info);
