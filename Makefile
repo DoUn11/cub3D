@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: doukim <doukim@student.42.fr>              +#+  +:+       +#+         #
+#    By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/26 13:27:04 by doukim            #+#    #+#              #
-#    Updated: 2024/01/30 17:13:30 by doukim           ###   ########.fr        #
+#    Updated: 2024/03/15 00:12:56 by chanspar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,4 +62,4 @@ re :
 	$(MAKE) fclean
 	$(MAKE) all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

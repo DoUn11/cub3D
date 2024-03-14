@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:30:45 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/13 19:30:31 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:38:13 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	c3d_player_set(t_cub3d *cub3d)
 	// cub3d->player->pos_x = cub3d->map->player_x + 0.5;
 	// cub3d->player->pos_y = cub3d->map->player_y + 0.5;
 
-	cub3d->player->pos_x = 12;
-	cub3d->player->pos_y = 5;
 	cub3d->player->pos_x = 5.0;
 	cub3d->player->pos_y = 5.5;
 

@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:30:14 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/13 20:14:23 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:38:01 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	c3d_clear_img(t_cub3d *cub3d)
 int	c3d_key_hook(t_cub3d *cub3d)
 {
 	if (cub3d->press->key_w || cub3d->press->key_s \
-	|| cub3d->press->key_a || cub3d->press->key_d)
+	|| cub3d->press->key_a || cub3d->press->key_d \
+	|| cub3d->press->key_l || cub3d->press->key_r)
+	{
 		c3d_move_player(cub3d);
-	else if (cub3d->press->key_l || cub3d->press->key_r)
 		c3d_rotate_player(cub3d);
+	}
 	return (0);
 }
 
