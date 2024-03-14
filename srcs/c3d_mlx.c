@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:30:45 by chanspar          #+#    #+#             */
-/*   Updated: 2024/03/15 01:38:13 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 04:19:20 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,23 @@ int	c3d_close_win(t_cub3d *cub3d)
 
 void	c3d_player_set(t_cub3d *cub3d)
 {
-	//플레이어 정보 파싱 나중에 x, y파싱 좀 
-	// cub3d->player->pos_x = cub3d->map->player_x + 0.5;
-	// cub3d->player->pos_y = cub3d->map->player_y + 0.5;
-
-	cub3d->player->pos_x = 5.0;
-	cub3d->player->pos_y = 5.5;
+	cub3d->player->pos_x = cub3d->start_locx + 0.5;
+	cub3d->player->pos_y = cub3d->start_locy + 0.5;
 
 	cub3d->player->dir_x = 0.0;
 	cub3d->player->dir_y = -1.0;
 	cub3d->player->plane_x = 0.66;
 	cub3d->player->plane_y = 0.0;
-	/*map에 동서남북 정보 만들어 줘 
-	if (cub3d->map->compass == 'E')
+
+	if (cub3d->start_dir == 'E')
 		cub3d->player->rotate_speed = 1.570795;
-	else if (cub3d->map->compass == 'S')
+	else if (cub3d->start_dir == 'S')
 		cub3d->player->rotate_speed = 1.570795 * 2;
-	else if (cub3d->map->compass == 'W')
+	else if (cub3d->start_dir == 'W')
 		cub3d->player->rotate_speed = 1.570795 * 3;
-	else if (cub3d->map->compass == 'N')
+	else if (cub3d->start_dir == 'N')
 		cub3d->player->rotate_speed = 1.570795 * 4;
 	c3d_rotate_right(cub3d);
-	*/
 	cub3d->player->move_speed = 0.05;
 	cub3d->player->rotate_speed = 0.05;
 }

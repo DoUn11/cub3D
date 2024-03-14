@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c3d_get_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:34:05 by doukim            #+#    #+#             */
-/*   Updated: 2024/03/15 01:17:23 by doukim           ###   ########.fr       */
+/*   Updated: 2024/03/15 02:01:54 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,14 @@ void	c3d_chk_field_valid(t_cub3d *info, char **map)
 				info->start_dir = map[x][y];
 				info->start_locx = y;
 				info->start_locy = x;
+				map[x][y] = '0';
 			}
 			if (ft_strchr("01 NSWE", map[x][y]) == NULL)
 				c3d_err_exit(info, "cub3D: invalid map format");
 		}
 	}
+	if (info->start_dir == 0)
+		c3d_err_exit(info, "cub3D: invalid map format");
 }
 void	c3d_chk_map_valid(t_cub3d *info)
 {

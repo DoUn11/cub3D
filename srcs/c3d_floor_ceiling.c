@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 17:42:12 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/13 17:58:27 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 02:21:52 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ void	c3d_pixel_put(t_cub3d *cub3d, int x, int y, int color)
 		+ x * (cub3d->img->bpp / 8));
 		*(unsigned int *)pxl = color;
 	}
-	// if ((x >= 0 && x <= WIDTH) && (y >= 0 && y <= HEIGHT))
-	// {
-	// 	cub3d->img->addr[y * cub3d->img->size_l / 4 + x] = color;
-	// }
 }
 
 void	c3d_cf_color(t_cub3d *cub3d)
