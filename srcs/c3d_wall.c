@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 15:29:47 by chanspar          #+#    #+#             */
-/*   Updated: 2024/02/13 17:57:28 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 10:28:38 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	c3d_cal_wall(t_cub3d *cub3d)
 		cub3d->ray->perpwalldist * cub3d->ray->raydir_x;
 	cub3d->tex.wall_x -= floor(cub3d->tex.wall_x);
 	cub3d->tex.x_coor = (int)(cub3d->tex.wall_x * (double)(cub3d->tex.width));
-	if ((cub3d->ray->side == 0 && cub3d->ray->raydir_x > 0)
-		|| (cub3d->ray->side == 1 && cub3d->ray->raydir_y < 0))
+	if ((cub3d->ray->side == 0 && cub3d->ray->raydir_x < 0)
+		|| (cub3d->ray->side == 1 && cub3d->ray->raydir_y > 0))
 		cub3d->tex.x_coor = cub3d->tex.width - cub3d->tex.x_coor - 1;
 }
 

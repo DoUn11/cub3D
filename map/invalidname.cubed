@@ -1,7 +1,7 @@
-NO ./spt/north_tex.xpm
-SO ./spt/south_tex.xpm
-WE ./spt/west_tex.xpm
-EA ./spt/east_tex.xpm
+NO ./texture/north_tex.xpm
+SO ./texture/south_tex.xpm
+WE ./texture/west_tex.xpm
+EA ./texture/east_tex.xpm
 
 C 92,148,252
 F 200,76,12
