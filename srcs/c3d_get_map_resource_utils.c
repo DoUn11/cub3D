@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c3d_get_map_resource_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:01:26 by doukim            #+#    #+#             */
-/*   Updated: 2024/01/30 19:34:30 by doukim           ###   ########.fr       */
+/*   Updated: 2024/03/15 10:46:52 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,12 @@ void	**c3d_get_resource_type(t_cub3d *info, char *line)
 		return ((void **)&info->col_ceil);
 	return (NULL);
 }
-void	c3d_skip_one_word(char **line)
-{
-	while (*line && (**line == ' ' || (9 <= **line && **line <= 13)))
-		(*line)++;
-	while (*line && !(**line == ' ' || (9 <= **line && **line <= 13)))
-		(*line)++;
-	while (*line && (**line == ' ' || (9 <= **line && **line <= 13)))
-		(*line)++;
-}
 
 int	c3d_get_splited_idx(t_cub3d *info, char **splited_rgb, int idx)
 {
 	int		ret;
 	char	*trimmed;
-	
+
 	if (splited_rgb[idx] == NULL)
 		c3d_err_exit(info, "cub3D: invalid resource format");
 	trimmed = ft_strtrim(splited_rgb[idx], " ");
@@ -53,6 +44,7 @@ int	c3d_get_splited_idx(t_cub3d *info, char **splited_rgb, int idx)
 	free(splited_rgb[idx]);
 	return (ret);
 }
+
 t_rgb	*c3d_get_rgb_resource(t_cub3d *info, char *line)
 {
 	char	**splited_rgb;
@@ -74,6 +66,7 @@ t_rgb	*c3d_get_rgb_resource(t_cub3d *info, char *line)
 	free(splited_rgb);
 	return (ret);
 }
+
 char	*c3d_get_path_resource(t_cub3d *info, char *line)
 {
 	char	**splited_path;
@@ -95,7 +88,8 @@ char	*c3d_get_path_resource(t_cub3d *info, char *line)
 void	c3d_get_proper_resource(t_cub3d *info, void **resource_ptr, char *line)
 {
 	c3d_skip_one_word(&line);
-	if ((t_rgb **)resource_ptr == &info->col_ceil || (t_rgb **)resource_ptr == &info->col_floor)
+	if ((t_rgb **)resource_ptr == &info->col_ceil || \
+		(t_rgb **)resource_ptr == &info->col_floor)
 		*resource_ptr = c3d_get_rgb_resource(info, line);
 	else
 		*resource_ptr = c3d_get_path_resource(info, line);

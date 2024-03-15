@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:10:53 by chanspar          #+#    #+#             */
-/*   Updated: 2024/03/15 10:16:07 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:14:13 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ void	c3d_load_texture(t_cub3d *cub3d)
 
 void	c3d_unload_texture(t_cub3d *cub3d)
 {
-	mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[0].img);
-	mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[1].img);
-	mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[2].img);
-	mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[3].img);
+	if (cub3d->tex.wall[0].img)
+		mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[0].img);
+	if (cub3d->tex.wall[1].img)
+		mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[1].img);
+	if (cub3d->tex.wall[2].img)
+		mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[2].img);
+	if (cub3d->tex.wall[3].img)
+		mlx_destroy_image(cub3d->mlx, cub3d->tex.wall[3].img);
 }

@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:34:05 by doukim            #+#    #+#             */
-/*   Updated: 2024/03/15 02:01:54 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 10:59:32 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	c3d_get_map_resource(t_cub3d *info, int file_fd)
 		cnt++;
 	}
 }
+
 void	c3d_get_map_shape(t_cub3d *info, int file_fd)
 {
 	t_list	*maplist;
@@ -47,86 +48,7 @@ void	c3d_get_map_shape(t_cub3d *info, int file_fd)
 	c3d_cvt_dblptrmap(info, maplist);
 	c3d_free_list(&maplist);
 }
-void	c3d_chk_row_valid(t_cub3d *info, char **map)
-{
-	int	x;
-	int	y;
-	int	inside;
 
-	x = -1;
-	while (++x < info->map_info->height)
-	{
-		inside = 0;
-		y = -1;
-		while (++y < info->map_info->width)
-		{
-			if (inside == 0 && map[x][y] == '1')
-				inside = 1;
-			if (inside == 0 && (map[x][y] != ' ' && map[x][y] != '1'))
-				c3d_err_exit(info, "cub3D: invalid map format");
-			if (inside == 1 && map[x][y] == '1' && (y + 1 == info->map_info->width || map[x][y + 1] == ' '))
-				inside = 0;
-			if (inside == 1 && map[x][y] == ' ')
-				c3d_err_exit(info, "cub3D: invalid map format");
-		}
-		if (inside)
-			c3d_err_exit(info, "cub3D: invalid map format");
-	}
-}
-void	c3d_chk_col_valid(t_cub3d *info, char **map)
-{
-	int	x;
-	int	y;
-	int	inside;
-
-	x = -1;
-	while (++x < info->map_info->width)
-	{
-		inside = 0;
-		y = -1;
-		while (++y < info->map_info->height)
-		{
-			if (inside == 0 && map[y][x] == '1')
-				inside = 1;
-			if (inside == 0 && (map[y][x] != ' ' && map[y][x] != '1'))
-				c3d_err_exit(info, "cub3D: invalid map format");
-			if (inside == 1 && map[y][x] == '1' && (y + 1 == info->map_info->height || map[y + 1][x] == ' '))
-				inside = 0;
-			if (inside == 1 && map[y][x] == ' ')
-				c3d_err_exit(info, "cub3D: invalid map format");
-		}
-		if (inside)
-			c3d_err_exit(info, "cub3D: invalid map format");
-	}
-}
-void	c3d_chk_field_valid(t_cub3d *info, char **map)
-{
-	int		x;
-	int		y;
-
-	info->start_dir = 0;
-	x = -1;
-	while (++x < info->map_info->height)
-	{
-		y = -1;
-		while (++y < info->map_info->width)
-		{
-			if (map[x][y] == 'N' || map[x][y] == 'E' || map[x][y] == 'W' || map[x][y] == 'S')
-			{
-				if (info->start_dir != 0)
-					c3d_err_exit(info, "cub3D: invalid map format");
-				info->start_dir = map[x][y];
-				info->start_locx = y;
-				info->start_locy = x;
-				map[x][y] = '0';
-			}
-			if (ft_strchr("01 NSWE", map[x][y]) == NULL)
-				c3d_err_exit(info, "cub3D: invalid map format");
-		}
-	}
-	if (info->start_dir == 0)
-		c3d_err_exit(info, "cub3D: invalid map format");
-}
 void	c3d_chk_map_valid(t_cub3d *info)
 {
 	c3d_chk_row_valid(info, info->map_info->map);
@@ -136,15 +58,16 @@ void	c3d_chk_map_valid(t_cub3d *info)
 	c3d_chk_field_valid(info, info->map_info->map);
 	printf("field is valid\n");
 }
+
 void	c3d_get_map(t_cub3d *info)
 {
 	int		file_fd;
-	
+
 	file_fd = open(info->filename, O_RDONLY);
 	if (file_fd == -1)
 		c3d_err_exit(info, "cub3D: failed to open file");
 	c3d_get_map_resource(info, file_fd);
-	
+
 	printf("NO : [%s]\n", info->tex_no);
 	printf("SO : [%s]\n", info->tex_so);
 	printf("WE : [%s]\n", info->tex_we);

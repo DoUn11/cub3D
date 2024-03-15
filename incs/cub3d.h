@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:17:44 by doukim            #+#    #+#             */
-/*   Updated: 2024/03/15 01:10:03 by doukim           ###   ########.fr       */
+/*   Updated: 2024/03/15 10:56:53 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@ char	*c3d_get_map_first_line(t_cub3d *info, int file_fd);
 void	c3d_get_listmap(t_cub3d *info, int file_fd, t_list **maplist);
 void	c3d_get_map_info(t_cub3d *info, t_list *maplist);
 void	c3d_cvt_dblptrmap(t_cub3d *info, t_list *maplist);
+void	c3d_chk_col_valid(t_cub3d *info, char **map);
+void	c3d_chk_row_valid(t_cub3d *info, char **map);
+void	c3d_chk_field_valid(t_cub3d *info, char **map);
 
 void	c3d_free_list(t_list **list);
 

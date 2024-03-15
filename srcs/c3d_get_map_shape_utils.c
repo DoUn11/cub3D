@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c3d_get_map_shape_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doukim <doukim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:55:08 by doukim            #+#    #+#             */
-/*   Updated: 2024/03/14 23:49:26 by doukim           ###   ########.fr       */
+/*   Updated: 2024/03/15 10:49:41 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ char	*c3d_get_map_first_line(t_cub3d *info, int file_fd)
 		return (line);
 	}
 }
+
 void	c3d_get_listmap(t_cub3d *info, int file_fd, t_list **maplist)
 {
 	char	*line;
 	t_list	*new_node;
-	
+
 	*maplist = NULL;
 	while (1)
 	{
@@ -51,6 +52,7 @@ void	c3d_get_listmap(t_cub3d *info, int file_fd, t_list **maplist)
 		ft_lstadd_back(maplist, ft_lstnew(line));
 	}
 }
+
 void	c3d_get_map_info(t_cub3d *info, t_list *maplist)
 {
 	t_list	*tmp;
@@ -78,6 +80,7 @@ void	c3d_get_map_info(t_cub3d *info, t_list *maplist)
 		idx++;
 	}
 }
+
 void	c3d_cut_empty_line(t_list *maplist)
 {
 	t_list	*tmp;
@@ -91,6 +94,7 @@ void	c3d_cut_empty_line(t_list *maplist)
 		tmp->next = NULL;
 	}
 }
+
 void	c3d_cvt_dblptrmap(t_cub3d *info, t_list *maplist)
 {
 	t_list	*tmp;
@@ -99,8 +103,6 @@ void	c3d_cvt_dblptrmap(t_cub3d *info, t_list *maplist)
 
 	c3d_cut_empty_line(maplist);
 	c3d_get_map_info(info, maplist);
-	printf("Height : %d\n", info->map_info->height);
-	printf("Width : %d\n", info->map_info->width);
 	tmp = maplist;
 	idx2 = 0;
 	while (tmp)

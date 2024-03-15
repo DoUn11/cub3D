@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:30:45 by chanspar          #+#    #+#             */
-/*   Updated: 2024/03/15 10:28:41 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/15 11:16:35 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,10 @@ void	c3d_player_set(t_cub3d *cub3d)
 {
 	cub3d->player->pos_x = cub3d->start_locx + 0.5;
 	cub3d->player->pos_y = cub3d->start_locy + 0.5;
-
 	cub3d->player->dir_x = 0.0;
 	cub3d->player->dir_y = -1.0;
 	cub3d->player->plane_x = 0.66;
 	cub3d->player->plane_y = 0.0;
-
 	if (cub3d->start_dir == 'E')
 		cub3d->player->rotate_speed = 1.570795;
 	else if (cub3d->start_dir == 'S')
