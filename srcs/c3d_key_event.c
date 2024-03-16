@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:30:14 by chanspar          #+#    #+#             */
-/*   Updated: 2024/03/15 11:05:29 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:15:26 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	c3d_clear_img(t_cub3d *cub3d)
 	if (cub3d->img->img)
 		mlx_destroy_image(cub3d->mlx, cub3d->img->img);
 	cub3d->img->img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	if (!cub3d->img->img)
+		c3d_err_exit(cub3d, "cub3D: malloc failed\n");
 	cub3d->img->addr = mlx_get_data_addr(cub3d->img->img, \
 		&cub3d->img->bpp, &cub3d->img->size_l, &cub3d->img->endian);
 }

@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:26:20 by doukim            #+#    #+#             */
-/*   Updated: 2024/03/15 11:14:40 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/16 18:12:43 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	c3d_free_list(t_list **list)
 	tmp = *list;
 	while (tmp)
 	{
-		free(tmp->data);
 		tmp2 = tmp->next;
+		free(tmp->data);
 		free(tmp);
 		tmp = tmp2;
 	}
@@ -29,18 +29,38 @@ void	c3d_free_list(t_list **list)
 	return ;
 }
 
+void	c3d_free_map_info(t_cub3d *info)
+{
+	int	idx;
+
+	if (info->map_info->map != NULL)
+	{
+		idx = 0;
+		while (idx < info->map_info->height)
+		{
+			if (info->map_info->map[idx] != NULL)
+				free(info->map_info->map[idx]);
+			idx++;
+		}
+		free(info->map_info->map);
+		info->map_info->map = NULL;
+	}
+	if (info->map_info != NULL)
+		free(info->map_info);
+}
+
 void	c3d_free_end(t_cub3d *info)
 {
-	int	i;
-
-	i = 0;
 	free(info->filename);
-	free(info->map_info);
+	c3d_free_map_info(info);
 	c3d_unload_texture(info);
-	if (info->img->img)
-		mlx_destroy_image(info->mlx, info->img->img);
-	mlx_destroy_window(info->mlx, info->win);
-	free(info->mlx);
+	if (info->img)
+	{
+		if (info->img->img)
+			mlx_destroy_image(info->mlx, info->img->img);
+	}
+	if (info->win)
+		mlx_destroy_window(info->mlx, info->win);
 	free(info->img);
 	free(info->press);
 	free(info->player);

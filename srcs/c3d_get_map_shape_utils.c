@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 22:55:08 by doukim            #+#    #+#             */
-/*   Updated: 2024/03/15 10:49:41 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:13:39 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	c3d_get_listmap(t_cub3d *info, int file_fd, t_list **maplist)
 		new_node = ft_lstnew(line);
 		if (new_node == NULL)
 			c3d_err_exit(info, "cub3D: malloc failed");
-		ft_lstadd_back(maplist, ft_lstnew(line));
+		ft_lstadd_back(maplist, new_node);
 	}
 }
 

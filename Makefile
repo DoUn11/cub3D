@@ -6,12 +6,12 @@
 #    By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/26 13:27:04 by doukim            #+#    #+#              #
-#    Updated: 2024/03/15 11:30:19 by chanspar         ###   ########.fr        #
+#    Updated: 2024/03/16 19:13:29 by chanspar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= cub3D
-CC		:= cc
+CC		:= cc -g
 INCLUDE	:= -I./incs -I./libs/libft -I./libs/get_next_line -I./libs/mlx
 CFLAGS	:= -Wall -Wextra -Werror
 FUNCS	:= \
@@ -22,7 +22,11 @@ FUNCS	:= \
 SRCDIR	:= ./srcs/
 OBJDIR	:= ./objs/
 
-SRCS	:= $(wildcard $(SRCDIR)*.c)
+SRCS	:= c3d_error.c c3d_get_map_resource_utils.c c3d_key_move.c c3d_tex.c \
+		c3d_floor_ceiling.c c3d_get_map_shape_utils.c c3d_key_rotate.c \
+		c3d_wall.c c3d_free.c c3d_get_map_utils.c c3d_main.c c3d_get_filename.c \
+		c3d_init.c c3d_mlx.c c3d_get_map.c c3d_key_event.c c3d_raycast.c
+			
 OBJS	:= $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 LIBS	:= \
 	./libs/libft/libft.a\

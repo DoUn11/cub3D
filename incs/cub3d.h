@@ -6,7 +6,7 @@
 /*   By: chanspar <chanspar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:17:44 by doukim            #+#    #+#             */
-/*   Updated: 2024/03/15 10:56:53 by chanspar         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:39:19 by chanspar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,6 @@ void	c3d_cal_wall(t_cub3d *cub3d);
 void	c3d_draw_wall(t_cub3d *cub3d, int x);
 
 void	c3d_free_end(t_cub3d *info);
+void	c3d_free_map_info(t_cub3d *info);
 
 #endif
